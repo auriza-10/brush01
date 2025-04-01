@@ -1,39 +1,34 @@
-var mouse = {
-  x: window.innerWidth / 2,
-  y: window.innerHeight / 2
+import Point from './js/componentes/point.js'; 
+ 
+const PALETTE = [ '#001219', '#005f73', '#0a9396', '#94d2bd'];
+const TOTAL_POINTS = 10;
+let points = [];
+
+window.setup = (event) => {
+
+for (let i = 0; i < TOTAL_POINTS; i++) {
+  const randomColor = PALETTE[Math.floor(Math.random() * PALETTE.length)];
+  const point = new Point({
+    fill: randomColor,
+    stroke: 0,
+    size: 300 - (20 * i),
+    friction: i * 0.01,
+    alpha: 150,  })
+  points.push(point);
 }
 
-var mouse2 = {
-  x: 0,
-  y: 0
-}
-
-var fiction = 0.1;
-var fict = 0.02;
-
-window.setup = () => {
   createCanvas(windowWidth, windowHeight);
-  background('black');
+
 };
 
-// p5.js draw function
-window.draw = () => {
+window.draw = (event) => {
   background('black');
-  mouse.x += (mouseX - mouse.x) * fiction;
-  mouse.y += (mouseY - mouse.y) * fiction;
-  ellipse(mouse.x, mouse.y, 10, 10);
-  text(mouseX + ", " + mouseY, mouse.x, mouse.y);
-  fill(255);
-
-  mouse2.x += (mouseX - mouse2.x) * fict;
-  mouse2.y += (mouseY - mouse2.y) * fict;
-  ellipse(mouse2.x, mouse2.y, 10, 10);
-  text(mouseX + ", " + mouseY, mouse2.x, mouse2.y);
-  fill(0, 255, 0);
+  for (let i = 0; i < points.length; i++) {
+    points[i].draw();
+  }
 };
 
-// p5.js windowResized function
-window.windowResized = () => {
+window.windowResized = (event) => {
 resizeCanvas(windowWidth, windowHeight);
-background('black'); // Reset background after resizing
+background('black'); 
 };
