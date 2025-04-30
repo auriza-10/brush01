@@ -1,25 +1,23 @@
-export default class Preloader {
+export default class PreLoader {
     constructor() {
-        this.preloader = document.getElementById("preloader");
+      this.preloader = document.getElementById("preloader");
     }
-
+  
     show() {
-        gsap.to(this.preloader, {
-            duration: 0.5,
-            y: 0,
-            ease: "power2.out",
-        });
+      this.preloader.style.display = 'flex';
+      gsap.set(this.preloader, { opacity: 1, y: '0%' });
     }
-
+  
     hide() {
-        gsap.to(this.preloader, {
-            duration: 1,
-            delay: .5, 
-            y: '-100%',
-            display: 'none',
-            ease: "power2.out",
-            
-        });
+      gsap.to(this.preloader, {
+        opacity: 0,
+        y: '-100%',
+        duration: 5,
+        ease: "power2.out",
+        onComplete: () => {
+          this.preloader.style.display = 'none';
+        }
+      });
     }
-}
-    
+  }
+  
